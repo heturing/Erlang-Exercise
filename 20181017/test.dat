@@ -1,0 +1,11 @@
+1 > X=10.
+10
+2 > X*X*X.
+1000
+3 > "Invaild input"
+3 > X*X*X.
+1000
+old commands:
+X=10.
+X*X*X.
+X*X*X.

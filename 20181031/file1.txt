@@ -1,0 +1,1 @@
+On operating systems with transparent naming, files can be inconsistently named, for example, some files are encoded in UTF-8 while others are encoded in ISO Latin-1. The concept of raw filenames is introduced to handle file systems with inconsistent naming when running in utf8 mode.

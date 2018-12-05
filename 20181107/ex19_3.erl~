@@ -1,0 +1,40 @@
+-module(ex19_3).
+-compile(export_all).
+
+
+rolling_checksum(Str) ->
+    Len = string:length(Str),
+    case Len - 40 =< 0 of
+        true ->
+	    [do_checksum(Str, 0)];
+	false ->
+	    Initial = do_checksum(string:slice(Str, 0 ,40), 0),
+	    Index = 41,
+	    left_checksums(Str, Index, Initial, []) ++ [Initial]
+	    
+    end.
+	    
+
+left_checksums(Str, Index, Lastchecksum, Result) ->
+    case Index =< string:length(Str) of
+        true ->
+            This_checksum = next_checksum(get_char(Str, Index), get_char(Str, Index - 40), Lastchecksum),
+            Result1 = Result ++ [This_checksum],
+            left_checksums(Str, Index + 1, This_checksum, Result1);
+	false ->
+	    Result
+    end.
+
+
+get_char(Str, N) ->
+    string:slice(Str, N - 1, 1).
+
+do_checksum([H|T], Result) ->
+    Result1 = Result + H,
+    do_checksum(T, Result1);
+
+do_checksum([], Result) ->
+    Result.
+
+next_checksum(Lastchar, Prevchar, Lastchecksum) ->
+    hd(Lastchar) - hd(Prevchar) + Lastchecksum.

@@ -1,0 +1,9 @@
+問題は twit_store.erl と呼ばれるランダムアクセスモジュールを書く、そして、次の関数をエクスポートする。関数init(K)は K twitの領域を割り当てる。関数store(N,Buf)はデータBufを twit N に格納する。関数fetch(N)は、twit Nに格納されたデータを取得する。
+
+私はファイルを使って twit データを保存します。まずは関数init(K)を説明したいと思います。関数init(K)は　関数file:allocate(IoDevice, Offset, Length) を使って、ファイルにスペースをあらかじめ割り当てます。この関数はokまたは{error, Why}を返します。したがって、関数init(K)がokを返すと、ファイルにK twitのスペースを割り当てます。
+
+関数store(N,Buf)は、ランダム書き込み関数file:pwrite(S, 140 * (N - 1) + 1, Buf) を使って任意のtwitにデータを格納します。注意すべきのは、１５行で、ファイルをopenするとき、使うのmodeは必ず[read,raw,binary,write]です。readを書かないと、ファイルtwit.txt内の元のデータはすべて消去されます。
+
+関数fetch(N)は、ランダム読み出し関数file:pread(IoDevice, Offset, Length)を使って、任意のtwitの内容を読み出します。twitはの長さは140-bytesですから、Lengthを140に設置して、適切なOffsetを選んだ場合、正常に実行できるはずです。
+
+実行の結果はsource code 2であります。最初に関数init(3)を使って、ファイルに3twitのスペースを割り当てます。その後、データDataを第2twitに格納し、現在の第1および第2twitの内容を見ます。第１twitは何も格納していないから、内容は０です。最後に、データData１を第1twitに格納し、現在のtwit 1および2の内容を表示します。今回第１twitで、データの保存しているから、内容は０ではありません。

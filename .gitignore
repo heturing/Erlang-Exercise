@@ -1,0 +1,11 @@
+*.beam
+*.aux
+*.log
+*.pdf
+*.tex
+*.gz
+*.sty
+*.out
+*.snm
+*.toc
+*.nav

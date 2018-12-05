@@ -1,0 +1,5 @@
+  問題はいくつかのworkerプロセスをモニターするプロセスを作ります。あるworkerプロセスが異常終了した場合は、すべてのworkerプロセスを終了して再起動します。
+  関数start()は3つworker関数と1つmonitor関数を作ります。そして、monitorプロセスと3つのworkerプロセスの間にmonitor関係を確立します。
+  workerプロセスaWorker(N)は2秒ごとに　worker N is working　と　自分のPidを出力します。workerプロセスがメッセージstopを受け取った場合、worker N stoped abnormally”を出力し、理由abnormalで終了します。workerプロセスがメッセージstopNormalを受け取った場合、worker N stoped normally”を出力し、理由normalで終了します。
+  monitorプロセスはこの3つプロセスをモニターします。monitorプロセスがメッセージ{’DOWN’, Ref, process, Pid, Why}を受信し、かつWhyがnormalでない場合、すべてのworkerプロセスを終了して再起動します。
+  結果をsource code2に示します。3つのworkerプロセスのPidは<0.72.0>、<0.73.0>、<0.74.0>です。monitorプロセスのPidは<0.70.0>です。11行で、worker1を異常終了させます、したがって、すべてのworkerプロセスが終了して再起動されます。新しいworkerプロセスのPidは<0.67.0>、<0.68.0>、<0.69.0>です。最後、新しいworker1を正常終了させます。この時では、worker2とworker3には影響しません。

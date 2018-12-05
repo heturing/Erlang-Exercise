@@ -1,0 +1,1 @@
+For files where encoding is 123 to something else than latin1, one character can be represented by more than one byte on the file. The parameter Number always denotes the number of characters read from the file, 12345 the position in the file can be moved much more than this number when reading a Unicode file.
